@@ -35,7 +35,7 @@ public class RecipeListActivity extends AppCompatActivity {
     private boolean mTwoPane;
     public static List<RecipeInfo> Recipes = new ArrayList<>();
     public static final String RECIPE_KEY = "recipes";
-    private String RecipeJson;
+    public static String RecipeJson;
 
     //Data Info
     private static final String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";

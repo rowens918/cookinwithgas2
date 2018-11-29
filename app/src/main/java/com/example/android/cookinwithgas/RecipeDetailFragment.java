@@ -89,7 +89,9 @@ public class RecipeDetailFragment extends Fragment implements StepAdapter.StepAd
                 }
             }
         } else {
-            mItem = RecipeListActivity.Recipes.get(savedInstanceState.getInt(ARG_ITEM_ID)-1);
+            String recipeJson = savedInstanceState.getString(RecipeListActivity.RECIPE_KEY);
+            List<RecipeInfo> sRecipes = JsonUtils.parseRecipeData(recipeJson);
+            mItem = sRecipes.get(savedInstanceState.getInt(ARG_ITEM_ID)-1);
             currStep = savedInstanceState.getInt(ARG_CURR_STEP);
             playbackPosition = savedInstanceState.getLong(ARG_CURR_POS);
             mTwoPane = savedInstanceState.getBoolean(ARG_TWOPANE);
@@ -183,6 +185,7 @@ public class RecipeDetailFragment extends Fragment implements StepAdapter.StepAd
         } else {
             outState.putLong(ARG_CURR_POS, playbackPosition);
         }
+        outState.putString(RecipeListActivity.RECIPE_KEY, RecipeListActivity.RecipeJson);
         outState.putBoolean(ARG_TWOPANE, mTwoPane);
         super.onSaveInstanceState(outState);
     }
@@ -268,11 +271,13 @@ public class RecipeDetailFragment extends Fragment implements StepAdapter.StepAd
     }
 
     public void onClickNextStep(View view) {
+        playbackPosition = 0;
         currStep++;
         changeStep(currStep);
     }
 
     public void onClickBackStep(View view) {
+        playbackPosition = 0;
         currStep--;
         changeStep(currStep);
     }
